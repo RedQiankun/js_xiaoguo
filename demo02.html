@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        div{
+            width: 100%;
+            height: 2000px;
+        }
+        ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: fixed;
+            top:150px;
+            right:150px;
+        }
+        ul>li{
+            width:50px;
+            height: 50px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="jquery-1.11.3.js"></script>
+</head>
+<body>
+<div>111111111111111</div>
+<div>222222222222222</div>
+<div>333333333333333</div>
+<div>444444444444444</div>
+<div>555555555555555</div>
+<div>666666666666666</div>
+<div>777777777777777</div>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+</ul>
+<script>
+    let divs = $('div');
+    let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
+    let lis=$('ul>li');
+    function bgColor() {
+        let counts = arr.length;
+        let colors = '#';
+        for (let i = 0; i < 6; i++) {
+            colors += arr[parseInt(Math.random() * counts)];
+        }
+        return colors;
+    }
+    for(let i=0;i<divs.length;i++){
+        let a=bgColor();
+        divs[i].style.backgroundColor=a;
+    }
+    for(let i=0;i<lis.length;i++){
+        let a=bgColor();
+        lis[i].style.backgroundColor=a;
+    }
+    let moves=50;index=true;
+    function uiBy(len){
+        if(index) {
+            index=false;
+            let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            let lens = scrollTop - len;
+            if (lens > 4000 || lens - len < -4000) {
+                var time = 3000;
+            } else {
+                var time = 2000;
+            }
+            let anyMove = lens / 50;
+            let anyTime = time / 50;
+            console.log(anyTime, anyMove)
+            var time1 = setInterval(() => {
+                moves--;
+                console.log(moves)
+                if (moves === 0) {
+                    clearInterval(time1);
+                    time1 = null;
+                    moves = 50;
+                    index=true;
+                }
+                window.scrollBy(0, -anyMove)
+            }, anyTime)
+        }
+    }
+    lis.on('click',(e)=>{
+//            console.log($(e.target).offset().top);
+        let val=$(e.target).html()-1;
+        let items=$(divs[val]).offset().top;
+        uiBy(items);
+    })
+
+</script>
+</body>
+</html>
