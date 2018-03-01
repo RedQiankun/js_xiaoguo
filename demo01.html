@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="js/vue.js"></script>-->
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #d1{
+            width: 260px;
+            height: 260px;
+            position: relative;
+        }
+        #d1-d2{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-color: #fff;
+            opacity: 0.5;
+            top:0;
+            left: 0;
+            display:none;
+        }
+        #d3{
+            width: 260px;
+            height: 260px;
+            position: absolute;
+            top:0;
+            left:0;
+        }
+        #d4{
+            width: 250px;
+            height: 250px;
+            position: absolute;
+            left:260px;
+            top:0;
+            /*background: url(producta1lg.png) no-repeat 20px 20px;*/
+            overflow: hidden;
+            display: none;
+        }
+        #d4>img{
+            position: absolute;
+            left:0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="d1">
+    <img src="producta1md.png" alt="">
+    <div id="d1-d2"></div>
+</div>
+<div id="d3"></div>
+<div id="d4">
+    <img id="im1" src="producta1lg.png" alt="">
+</div>
+<script>
+    let d3=document.getElementById('d3');
+    let d2_d1=document.getElementById('d1-d2');
+    let d4=document.getElementById('d4');
+    let img=document.getElementById('im1');
+    d3.onmousemove=function(e){
+        let x=e.offsetX;
+        let y=e.offsetY;
+        d2_d1.style.display='block';
+        d2_d1.style.left=x-50<0?'0px':x+50>260?'160px':`${x-50}px`;
+        d2_d1.style.top=y-50<0?'0px':y+50>260?'160px':`${y-50}px`;
+        d4.style.display='block';
+        if(x>50&&x<210){
+            img.style.left=`${-(x-50)*25/16}px`;
+        }
+        if(y>50&&y<210){
+            img.style.top=`${-(y-50)*25/16}px`;
+        }
+    };
+    d3.onmouseout=function(){
+        d2_d1.style.display='none';
+        d4.style.display='none';
+    }
+</script>
+</body>
+</html>
