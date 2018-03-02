@@ -1,6 +1,6 @@
 <?php
 header('Content-Type:application/json;charset=utf8');
-
+header('Access-Control-Allow-Origin:*');
 $files=$_FILES['files'];
 $tmp=$files['tmp_name'];
 $ends=dirname(__FILE__);
